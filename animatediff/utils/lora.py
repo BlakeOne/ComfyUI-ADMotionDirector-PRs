@@ -426,6 +426,7 @@ def inject_trainable_lora_extended(
             _tmp.linear.weight = weight
             if bias is not None:
                 _tmp.linear.bias = bias
+            require_grad_params.append(_tmp.lora_mid.parameters())
         elif _child_module.__class__ == nn.Conv2d:
             weight = _child_module.weight
             bias = _child_module.bias
@@ -466,8 +467,7 @@ def inject_trainable_lora_extended(
             _tmp.to(_child_module.bias.device).to(_child_module.bias.dtype)
         
         _module._modules[name] = _tmp
-        require_grad_params.append(_module._modules[name].lora_up.parameters())
-        require_grad_params.append(_module._modules[name].lora_mid.parameters())
+        require_grad_params.append(_module._modules[name].lora_up.parameters())        
         require_grad_params.append(_module._modules[name].lora_down.parameters())
 
         if loras != None:
