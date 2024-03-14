@@ -380,6 +380,7 @@ def inject_trainable_lora(
         _module._modules[name] = _tmp
 
         require_grad_params.append(_module._modules[name].lora_up.parameters())
+        require_grad_params.append(_module._modules[name].lora_mid.parameters())
         require_grad_params.append(_module._modules[name].lora_down.parameters())
 
         if loras != None:
