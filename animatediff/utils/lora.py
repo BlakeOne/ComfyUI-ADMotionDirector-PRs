@@ -47,7 +47,7 @@ class LoraInjectedLinear(nn.Module):
         self.r = r
         self.linear = nn.Linear(in_features, out_features, bias)
         self.lora_down = nn.Linear(in_features, r, bias=False)
-        self.lora_mid = nn.Linear(r, r, bias=False, device=device, dtype=dtype)        
+        self.lora_mid = nn.Linear(r, r, bias=False)        
         self.lora_up = nn.Linear(r, out_features, bias=False)
         self.dropout = nn.Dropout(dropout_p)
         self.scale = scale
