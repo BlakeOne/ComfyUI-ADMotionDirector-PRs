@@ -65,7 +65,8 @@ class LoraInjectedLinear(nn.Module):
         )
 
     def realize_as_lora(self):
-        return self.lora_up.weight.data * self.scale, self.lora_mid.weight.data, self.lora_down.weight.data
+        # return self.lora_up.weight.data * self.scale, self.lora_mid.weight.data, self.lora_down.weight.data
+        return self.lora_up.weight.data * self.scale, torch.mm(self.lora_mid.weight.data, self.lora_down.weight.data)
 
     def set_selector_from_diag(self, diag: torch.Tensor):
         # diag is a 1D tensor of size (r,)
